@@ -1,0 +1,41 @@
+﻿@model IEnumerable<RouterLab.RouterStandart>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Стандарти і роутери</h1>
+
+<p>
+    <a asp-action="Create">Додати</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Router)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Standart)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Router.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Standart.Standart1)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RouterStandartId">Змінити</a> |
+                <a asp-action="Details" asp-route-id="@item.RouterStandartId">Про роутер</a> |
+                <a asp-action="Delete" asp-route-id="@item.RouterStandartId">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

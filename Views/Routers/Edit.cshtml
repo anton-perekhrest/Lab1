@@ -1,0 +1,54 @@
+﻿@model RouterLab.Router
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Router</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RouterId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceId" class="control-label"></label>
+                <select asp-for="PriceId" class="form-control" asp-items="ViewBag.PriceId"></select>
+                <span asp-validation-for="PriceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiapasonId" class="control-label"></label>
+                <select asp-for="DiapasonId" class="form-control" asp-items="ViewBag.DiapasonId"></select>
+                <span asp-validation-for="DiapasonId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpeedId" class="control-label"></label>
+                <select asp-for="SpeedId" class="form-control" asp-items="ViewBag.SpeedId"></select>
+                <span asp-validation-for="SpeedId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
