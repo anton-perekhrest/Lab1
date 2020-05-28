@@ -25,9 +25,10 @@
                 @Html.DisplayFor(modelItem => item.Price1)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PriceId">Змінити</a> |
-                <a asp-action="Details" asp-route-id="@item.PriceId">Роутери</a> |
-                <a asp-action="Delete" asp-route-id="@item.PriceId">Видалити</a>
+                <a asp-action="Edit" asp-route-id="@item.PriceId">Змінити|</a> 
+                <a asp-action="Details" asp-route-id="@item.PriceId">Роутери|</a> 
+                <a asp-action="Delete" asp-route-id="@item.PriceId">Видалити|</a> 
+                <a asp-action="Export" asp-route-id="@item.PriceId"> Завантажити у файл Excel </a>
             </td>
         </tr>
 }

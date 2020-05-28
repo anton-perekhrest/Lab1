@@ -9,6 +9,20 @@
 <p>
     <a asp-action="Create">Додати</a>
 </p>
+
+<div>
+    <h3>Select Excel-file for download</h3>
+    @using (Html.BeginForm("Import", "Prices", FormMethod.Post, new { enctype = "multipart/form-data", id = "frm-excel" }))
+    {
+        <div>
+            Download Excel-file:
+            <input type="file" name="fileExcel" id="fileExcel" />
+            <div>
+                <input type="submit" value="Download" />
+            </div>
+        </div>
+    }
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -31,29 +45,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Diapason.Diapason1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price.Price1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Speed.Speed1)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RouterId">Змінити</a> |
-                <a asp-action="Details" asp-route-id="@item.RouterId">Стандарти</a> |
-                <a asp-action="Delete" asp-route-id="@item.RouterId">Видалити</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Diapason.Diapason1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price.Price1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Speed.Speed1)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RouterId">Змінити</a> |
+                    <a asp-action="Details" asp-route-id="@item.RouterId">Стандарти</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RouterId">Видалити</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
