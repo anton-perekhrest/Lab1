@@ -1,13 +1,16 @@
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using RouterLab.Models;
+using RouterLab;
 
 namespace RouterLab
-{
+{ 
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -20,10 +23,21 @@ namespace RouterLab
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IUserValidator<User>, CustomUserValidator>();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<RouterBaseContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
+
+            string connectionIdentity = Configuration.GetConnectionString("IdentityConnection");
+            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionIdentity));
+            services.AddControllersWithViews();
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityContext>()
+                .AddDefaultTokenProviders();
+            services.AddControllersWithViews(); // ?
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +58,7 @@ namespace RouterLab
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

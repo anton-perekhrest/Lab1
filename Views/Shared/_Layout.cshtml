@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+@using Microsoft.AspNetCore.Identity;
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -9,6 +11,7 @@
             background-attachment: fixed;
             background-size: cover;
         }
+
         .navbar-brand1 {
             display: inline-block;
             padding-top: 0.3125rem;
@@ -53,6 +56,33 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+                            var customUserClaim = claimsIdentity != null ? claimsIdentity.Claims.FirstOrDefault(x => x.Type == "customType") : null;
+                            var customTypeValue = customUserClaim != null ? customUserClaim.Value : User.Identity.Name;
+                            var roleOfUser = claimsIdentity != null ? claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value : "User";
+                            @if (roleOfUser == "admin")
+                            {
+                                <li class="nav-item" method="post">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ADMIN">ADMIN</a>
+                                </li>
+                            }
+                            <li class="navbar-brand"><a> -- @User.Identity.Name --</a></li>
+                            <form method="post">
+                                <input asp-area="" asp-controller="Account" asp-action="Logout" type="submit" value="Log out" />
+                            </form>
+
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Sign up</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

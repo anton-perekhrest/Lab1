@@ -27,6 +27,20 @@ namespace RouterLab.Controllers
         {
             return View();
         }
+        public IActionResult Users()
+        {
+            return RedirectToAction("Index", "Users");
+        }
+
+        public IActionResult ADMIN()
+        {
+            return View();
+        }
+
+        public IActionResult Roles()
+        {
+            return RedirectToAction("Index", "Roles");
+        }
         public IActionResult Films()
         {
             return RedirectToAction("Index", "Films");
